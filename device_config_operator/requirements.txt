@@ -1,6 +1,6 @@
 aio-pika==6.6.1
 aiormq==3.2.2
--e git+https://github.com/Alexander35/amqp_handler.git@b1bee09531d08e1cda2f345211695e8392ffc4f2#egg=amqp_handler
+-e git+https://github.com/Alexander35/amqp_handler.git#egg=amqp_handler
 asgiref==3.2.10
 certifi==2020.6.20
 cffi==1.14.0
