@@ -1,0 +1,18 @@
+aio-pika==6.6.1
+aiormq==3.2.2
+-e git+https://github.com/Alexander35/amqp_handler.git@b1bee09531d08e1cda2f345211695e8392ffc4f2#egg=amqp_handler
+asgiref==3.2.10
+certifi==2020.6.20
+cffi==1.14.0
+cryptography==2.9.2
+Django==3.0.7
+django-fernet-fields==0.6
+idna==2.9
+multidict==4.7.6
+pamqp==2.3.0
+psycopg2==2.8.5
+pycparser==2.20
+pytz==2020.1
+six==1.15.0
+sqlparse==0.3.1
+yarl==1.4.2

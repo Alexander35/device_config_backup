@@ -1,0 +1,46 @@
+--- 
+  - name: Deploy
+    connection: ssh
+    gather_facts: false
+    hosts: all
+    vars:
+      clone_to: "/tmp/device_config_backup/"
+      git_url: "https://github.com/Alexander35/device_config_backup.git"
+      device_config_backup_host_address: "{{ansible_host}}"
+      device_config_backup_db_name: "device_config_backup"
+      device_config_backup_db_user_name: "device_config_backup"
+      device_config_backup_db_password: "device_config_backup"
+      device_config_backup_admin_name: "admin"
+      device_config_backup_admin_email: "ad@m.in"
+      device_config_backup_admin_password: "admin"
+
+    tasks:
+      - git:
+          repo: "{{ git_url }}"
+          dest: "{{ clone_to }}"
+          update: yes
+
+      - name: build image
+        command: >
+          docker build
+          --tag device_config_backup {{clone_to}}
+
+      - block:
+        - name: stop container
+          command: docker stop d_c_b
+
+        - name: rm container
+          command: docker rm d_c_b
+
+        ignore_errors: yes
+
+      - name: run image
+        command: >
+          docker run -d -e DEVICE_CONFIG_BACKUP_HOST_ADDRESS={{device_config_backup_host_address}}
+          -e DEVICE_CONFIG_BACKUP_DB_NAME={{device_config_backup_db_name}}
+          -e DEVICE_CONFIG_BACKUP_DB_USER_NAME={{device_config_backup_db_user_name}}
+          -e DEVICE_CONFIG_BACKUP_DB_PASSWORD={{device_config_backup_db_password}}
+          -e DEVICE_CONFIG_BACKUP_ADMIN_NAME={{device_config_backup_admin_name}}
+          -e DEVICE_CONFIG_BACKUP_ADMIN_EMAIL={{device_config_backup_admin_email}}
+          -e DEVICE_CONFIG_BACKUP_ADMIN_PASSWORD={{device_config_backup_admin_password}}
+          --publish 8809:8809 --name d_c_b  ip_vlan_keeper

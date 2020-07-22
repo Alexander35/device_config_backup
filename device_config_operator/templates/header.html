@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="{% url 'main' %}">Device Config Backup.</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Devices
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'show_devices_group_list' %}">Show Devices Groups List</a>
+          <a class="dropdown-item" href="{% url 'show_device_list' %}">Show All Device List</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'show_potential_devices_list' %}">Show Potential Devices List</a>         
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'show_network_list' %}">Show Network List</a>
+        </div>
+      </li>   
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Config
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="" data-toggle="modal" data-target="#confirmationUpdateConfigModal">Update Config History</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{ user.username }}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+          <div class="dropdown-divider"></div>
+        </div>
+      </li>      
+    </ul>
+  </div>
+</nav>
+
+{% include "confirmation_update_config_modal.html" %}

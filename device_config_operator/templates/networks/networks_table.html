@@ -1,0 +1,40 @@
+<h3 class="text-center">
+	{{ title }}
+</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">DB id</th>
+      <th scope="col">network_name</th>
+      <th scope="col">network</th>
+      <th scope="col">Action</th>
+      <th scope="col">Add potential devices to a group</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{% for network in networks %}
+    <tr>
+      <th scope="row"> {{ network.id }} </th>
+      <td> {{ network.network_name }}</td>
+      <td> {{ network.network }}</td>
+      <td>
+      	<a href="{% url 'scan_network' network.id %}" title="get scan for network">
+      	<i class="material-icons"> refresh </i>
+        <a href="{% url 'delete_network' network.id %}" title="delete with all devices network (only potential devices)">
+        <i class="material-icons"> delete </i>
+      </td>
+      <td>
+        {% for device_group in device_groups %}
+          <span> {{ device_group.name }}</span>
+          <span>
+            <a href="{% url 'potential_devices_to_group' network.id device_group.id %}" title="add potential devices to a group">
+
+            <i class="material-icons"> add_circle </i>
+            </a> 
+          </span>
+        {% endfor %}    
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

@@ -1,0 +1,23 @@
+<!-- Modal -->
+<div class="modal fade" id="confirmationUpdateConfigModal" tabindex="-1" role="dialog" aria-labelledby="confirmationUpdateConfigModal" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Подтверждение Обновления Истории Конфигураций</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				Не нагружайте лишней работой оборудование! 
+				Не делйте обновление истории о конфигурации оборудования просто так!
+				Делайте это тогда, когда это действительно необходимо.
+				Данные о конфигурации скоро должны будут обновлены. Через некоторе время, пожалуйста убедитесь в этом на странице истории конфигураций.
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+				<a href="{% url 'update_config_history' 'All'%}"" type="button" class="btn btn-danger">Update</a>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,23 @@
+<h3 class="text-center">
+	{{ title }}
+</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{% for device_group in device_groups %}
+    <tr>
+      <td> {{ device_group.name }}</td>
+      <td>
+      	<a href="{% url 'show_device_list_for_group' device_group.id %}" title="get device group list">
+
+      	<i class="material-icons"> dns </i> 
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

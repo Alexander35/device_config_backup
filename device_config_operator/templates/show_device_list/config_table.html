@@ -1,0 +1,35 @@
+<h3 class="text-center">
+	{{ title }}
+</h3>
+
+<h4 class="text-center">
+  Show Run History :: {{device.device_name}}
+</h4>
+
+<div class="accordion" id="accordionConfig">
+
+{% for show_run in show_run_s %}
+
+  <div class="card">
+	<div class="card-header" id="headingOne">
+	  <h5 class="mb-0">
+		<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ show_run.id }}"  aria-controls="collapse{{ show_run.id }}">
+		  {{ show_run.created_at }}
+		</button>
+		<a href="{% url 'show_run_config' show_run.id %}" title="Download config">
+
+      	<i class="material-icons"> save </i> 
+	    </a>
+
+	  </h5>
+	</div>
+
+	<div id="collapse{{ show_run.id }}" class="collapse " aria-labelledby="headingOne" data-parent="#accordionConfig">
+	  <div class="card-body">
+		{{ show_run.device_config.config|safe}}
+	  </div>
+	</div>
+  </div>
+
+	{% endfor %}
+</div>

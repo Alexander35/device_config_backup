@@ -1,0 +1,32 @@
+<h3 class="text-center">
+  {{ title }}
+</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">DB id</th>
+      <th scope="col">Name</th>
+      <th scope="col">IPv4</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for device in device_list %}
+    <tr>
+      <th scope="row"> {{ device.id }} </th>
+      <td> {{ device.device_name }}</td>
+      <td> {{ device.device_ipv4 }}</td>
+      <td>
+        <a href="{% url 'show_device' device.id %}" title="get device config history">
+
+        <i class="material-icons"> dns </i> 
+
+        <a href="{% url 'update_config_history' device.id %}" title="send config update request">
+
+        <i class="material-icons"> refresh </i>         
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

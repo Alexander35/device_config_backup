@@ -1,0 +1,32 @@
+<h3 class="text-center">
+	{{ title }}
+</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">DB id</th>
+      <th scope="col">IPv4</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{% for device in potential_devices_list %}
+    <tr>
+      <th scope="row"> {{ device.id }} </th>
+      <td> {{ device.device_ipv4 }}</td>
+      <td>
+        Add to the Group: 
+
+		    {% for group in device_groups %}
+          {{ group.name }}
+        	<a href="{% url 'add_device' device.id  group.id %}" title="add the device to the devices list">
+        		
+	      	<i class="material-icons"> add_circle </i> 
+	        </a>
+      	{% endfor %} 	
+      	
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
