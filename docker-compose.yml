@@ -13,7 +13,7 @@ services:
       - rmq_net
 
   device_config_backup:
-    build: /tmp/device_config_backup/device_config_operator/
+    build: /tmp/device_config_backup/
     ports:
       - "8809:8809/tcp"
       - "8809:8809/udp"
