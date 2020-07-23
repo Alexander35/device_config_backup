@@ -43,4 +43,4 @@
           -e DEVICE_CONFIG_BACKUP_ADMIN_NAME={{device_config_backup_admin_name}}
           -e DEVICE_CONFIG_BACKUP_ADMIN_EMAIL={{device_config_backup_admin_email}}
           -e DEVICE_CONFIG_BACKUP_ADMIN_PASSWORD={{device_config_backup_admin_password}}
-          --publish 8809:8809 --name d_c_b  ip_vlan_keeper
+          --publish 8809:8809 --name d_c_b  device_config_backup
