@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'device_config_backup.wsgi.application'
 DEVICE_CONFIG_BACKUP_DB_NAME = os.environ.get('DEVICE_CONFIG_BACKUP_DB_NAME', 'device_config_backup')
 DEVICE_CONFIG_BACKUP_DB_USER_NAME = os.environ.get('DEVICE_CONFIG_BACKUP_DB_USER_NAME', 'device_config_backup')
 DEVICE_CONFIG_BACKUP_DB_PASSWORD = os.environ.get('DEVICE_CONFIG_BACKUP_DB_PASSWORD', 'device_config_backup')
-DEVICE_CONFIG_BACKUP_HOST_ADDRESS = os.environ.get('DEVICE_CONFIG_BACKUP_HOST_ADDRESS', '127.0.0.1')
+DEVICE_CONFIG_BACKUP_HOST_ADDRESS = os.environ.get('DEVICE_CONFIG_BACKUP_HOST_ADDRESS', 'device_config_backup_host_address')
 
 DATABASES = {
 	'default': {
