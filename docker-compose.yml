@@ -3,6 +3,7 @@ services:
 
   rabbitmq:
     image: "rabbitmq:3.6-management"
+    container_name: rmq
     ports:
       - "5671:5671/tcp"
       - "5672:5672/tcp"
