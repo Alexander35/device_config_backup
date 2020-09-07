@@ -18,6 +18,7 @@ ARG RMQ_HOST
 ARG POSTGRES_COMMANDER_RMQ_EXCHANGE
 ARG POSTGRES_COMMANDER_RMQ_QUEUE_IN
 ARG EASY_CROSSING_POST_ADDRESS
+ARG RMQ_TELNET_OPERATOR_REDIRECT_TO_QUEUE
 
 RUN apt-get update
 RUN apt-get install -y apt-utils gcc apt-utils python3-psycopg2 libpq-dev nginx python-dev git
