@@ -19,7 +19,7 @@ services:
       - "8809:8809/tcp"
       - "8809:8809/udp"
     container_name: d_c_b
-    restart: always
+    # restart: always
     depends_on:
       - rabbitmq
     networks:

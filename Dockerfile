@@ -38,4 +38,4 @@ RUN usermod -a -G www-data root
 
 EXPOSE 8809
 
-ENTRYPOINT ln -s /tmp/device_config_backup/device_config_operator/device_config_backup_nginx.conf /etc/nginx/sites-enabled/ && rm -rf /etc/nginx/sites-enabled/default && /etc/init.d/nginx start && python manage.py makemigrations --noinput && python manage.py makemigrations device_config_operator --noinput && python -u manage.py migrate --noinput && python -u manage.py createfirstuser && uwsgi --ini /tmp/device_config_operator/device_config_backup_uwsgi.ini --daemonize uwsgi.log && tail -f /dev/null
+ENTRYPOINT ln -s /device_config_backup/device_config_operator/device_config_backup_nginx.conf /etc/nginx/sites-enabled/ && rm -rf /etc/nginx/sites-enabled/default && /etc/init.d/nginx start && python manage.py makemigrations --noinput && python manage.py makemigrations device_config_operator --noinput && python -u manage.py migrate --noinput && python -u manage.py createfirstuser && uwsgi --ini /device_config_operator/device_config_backup_uwsgi.ini --daemonize uwsgi.log && tail -f /dev/null
