@@ -15,6 +15,8 @@ services:
 
   device_config_backup:
     build: /tmp/device_config_backup/
+    # build:
+    #   context: /tmp/device_config_backup/
     ports:
       - "8809:8809/tcp"
       - "8809:8809/udp"
