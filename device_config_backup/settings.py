@@ -133,6 +133,8 @@ FERNET_KEYS = [
 	'SuperStromng encrPton string',
 ]
 
+RMQ_HOST = os.environ.get('RMQ_HOST', '')
+
 AMQP_EXCHANGE_DEVICE_CONFIG_OPERATOR = os.environ.get('RMQ_TELNET_OPERATOR_RMQ_EXCHANGE', '')
 AMQP_QUEUE_DEVICE_CONFIG_UPDATE_REQUESTS = os.environ.get('RMQ_TELNET_OPERATOR_RMQ_QUEUE_IN', '')
 

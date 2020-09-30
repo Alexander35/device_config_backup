@@ -212,7 +212,7 @@ def update_config_history_by_ipv4(request, device_ipv4):
 
     AMQPH = AMQPHandler(loop)
 
-    loop.run_until_complete(AMQPH.connect())    
+    loop.run_until_complete(AMQPH.connect(amqp_connect_string=settings.RMQ_HOST))
 
 
     try:
@@ -262,7 +262,7 @@ def update_config_history(request, device_id='All'):
 
     AMQPH = AMQPHandler(loop)
 
-    loop.run_until_complete(AMQPH.connect())    
+    loop.run_until_complete(AMQPH.connect(amqp_connect_string=settings.RMQ_HOST))
 
 
     if device_id == 'All':
@@ -339,7 +339,7 @@ def scan_network(request, network_id):
 
     AMQPH = AMQPHandler(loop)
 
-    loop.run_until_complete(AMQPH.connect())
+    loop.run_until_complete(AMQPH.connect(amqp_connect_string=settings.RMQ_HOST))
 
     network_msg['network'] = network.network
 
