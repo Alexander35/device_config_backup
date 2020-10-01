@@ -4,8 +4,18 @@
     gather_facts: false
     hosts: all
     vars:
-      clone_to: "/tmp/device_config_backup/"
-      git_url: "https://github.com/Alexander35/device_config_backup.git"
+      device_config_backup_clone_to: "/tmp/device_config_backup/"
+      device_config_backup_git_url: "https://github.com/Alexander35/device_config_backup.git"
+
+      rmq_postgres_commander_clone_to: "/tmp/rmq_postgres_commander/"
+      rmq_postgres_commander_git_url: "https://github.com/Alexander35/rmq_postgres_commander.git"
+
+      rmq_telnet_operator_clone_to: "/tmp/rmq_telnet_operator/"
+      rmq_telnet_operator_git_url: "https://github.com/Alexander35/rmq_telnet_operator.git"
+
+      rmq_ping_commander_clone_to: "/tmp/rmq_ping_commander/"
+      rmq_ping_commander_git_url: "https://github.com/Alexander35/rmq_ping_commander.git"
+
       device_config_backup_host_address: "{{ansible_host}}"
       device_config_backup_db_name: "device_config_backup"
       device_config_backup_db_user_name: "device_config_backup"
@@ -14,33 +24,92 @@
       device_config_backup_admin_email: "ad@m.in"
       device_config_backup_admin_password: "admin"
 
+      rmq_host: "amqp://guest:guest@172.17.0.1:5672"
+
+      postgres_commander_rmq_exchange : "postgres_commander_rmq_exchange"
+      postgres_commander_rmq_queue_in : "postgres_commander_rmq_queue_in"
+      easy_crossing_post_address : ""
+
+      rmq_telnet_operator_rmq_exchange: "rmq_telnet_operator_rmq_exchange"
+      rmq_telnet_operator_rmq_queue_in: "rmq_telnet_operator_rmq_queue_in"
+      rmq_telnet_operator_redirect_to_exchange: "{{postgres_commander_rmq_exchange}}"
+      rmq_telnet_operator_redirect_to_queue: "{{postgres_commander_rmq_queue_in}}"
+
+      rmq_ping_commander_rmq_exchange: "rmq_ping_commander_rmq_exchange"
+      rmq_ping_commander_rmq_queue_in: "rmq_ping_commander_rmq_queue_in"
+
     tasks:
       - git:
-          repo: "{{ git_url }}"
-          dest: "{{ clone_to }}"
+          repo: "{{device_config_backup_git_url}}"
+          dest: "{{device_config_backup_clone_to}}"
           update: yes
 
-      - name: build image
+      - git:
+          repo: "{{rmq_postgres_commander_git_url}}"
+          dest: "{{rmq_postgres_commander_clone_to}}"
+          update: yes
+
+      - git:
+          repo: "{{rmq_telnet_operator_git_url}}"
+          dest: "{{rmq_telnet_operator_clone_to}}"
+          update: yes
+
+      - git:
+          repo: "{{rmq_ping_commander_git_url}}"
+          dest: "{{rmq_ping_commander_clone_to}}"
+          update: yes
+
+      - name: build images
         command: >
-          docker build
-          --tag device_config_backup {{clone_to}}
+          docker-compose --log-level DEBUG --file {{device_config_backup_clone_to}}docker-compose.yml build
+          --build-arg DEVICE_CONFIG_BACKUP_HOST_ADDRESS={{device_config_backup_host_address}}
+          --build-arg DEVICE_CONFIG_BACKUP_DB_NAME={{device_config_backup_db_name}}
+          --build-arg DEVICE_CONFIG_BACKUP_DB_USER_NAME={{device_config_backup_db_user_name}}
+          --build-arg DEVICE_CONFIG_BACKUP_DB_PASSWORD={{device_config_backup_db_password}}
+          --build-arg DEVICE_CONFIG_BACKUP_ADMIN_NAME={{device_config_backup_admin_name}}
+          --build-arg DEVICE_CONFIG_BACKUP_ADMIN_EMAIL={{device_config_backup_admin_email}}
+          --build-arg DEVICE_CONFIG_BACKUP_ADMIN_PASSWORD={{device_config_backup_admin_password}}
+          --build-arg RMQ_HOST={{rmq_host}}
+          --build-arg POSTGRES_COMMANDER_RMQ_EXCHANGE={{postgres_commander_rmq_exchange}}
+          --build-arg POSTGRES_COMMANDER_RMQ_QUEUE_IN={{postgres_commander_rmq_queue_in}}
+          --build-arg EASY_CROSSING_POST_ADDRESS={{easy_crossing_post_address}}
+          --build-arg RMQ_TELNET_OPERATOR_RMQ_EXCHANGE={{rmq_telnet_operator_rmq_exchange}}
+          --build-arg RMQ_TELNET_OPERATOR_RMQ_QUEUE_IN={{rmq_telnet_operator_rmq_queue_in}}
+          --build-arg RMQ_TELNET_OPERATOR_REDIRECT_TO_EXCHANGE={{rmq_telnet_operator_redirect_to_exchange}}
+          --build-arg RMQ_TELNET_OPERATOR_REDIRECT_TO_QUEUE={{rmq_telnet_operator_redirect_to_queue}}
+          --build-arg RMQ_PING_COMMANDER_RMQ_EXCHANGE={{rmq_ping_commander_rmq_exchange}}
+          --build-arg RMQ_PING_OPERATOR_RMQ_QUEUE_IN={{rmq_ping_commander_rmq_queue_in}}
 
       - block:
-        - name: stop container
+        - name: stop container d_c_b
           command: docker stop d_c_b
 
-        - name: rm container
+        - name: rm container d_c_b
           command: docker rm d_c_b
+
+        - name: stop container d_c_b_pgc
+          command: docker stop d_c_b_pgc
+
+        - name: rm container d_c_b_pgc
+          command: docker rm d_c_b_pgc
+
+        - name: stop container d_c_b_to
+          command: docker stop d_c_b_to
+
+        - name: rm container d_c_b_to
+          command: docker rm d_c_b_to
+
+        - name: stop container d_c_b_pc
+          command: docker stop d_c_b_pc
+
+        - name: rm container d_c_b_pc
+          command: docker rm d_c_b_pc
+
+        - name: rm container rmq
+          command: docker rm rmq
 
         ignore_errors: yes
 
-      - name: run image
+      - name: run images
         command: >
-          docker run -d -e DEVICE_CONFIG_BACKUP_HOST_ADDRESS={{device_config_backup_host_address}}
-          -e DEVICE_CONFIG_BACKUP_DB_NAME={{device_config_backup_db_name}}
-          -e DEVICE_CONFIG_BACKUP_DB_USER_NAME={{device_config_backup_db_user_name}}
-          -e DEVICE_CONFIG_BACKUP_DB_PASSWORD={{device_config_backup_db_password}}
-          -e DEVICE_CONFIG_BACKUP_ADMIN_NAME={{device_config_backup_admin_name}}
-          -e DEVICE_CONFIG_BACKUP_ADMIN_EMAIL={{device_config_backup_admin_email}}
-          -e DEVICE_CONFIG_BACKUP_ADMIN_PASSWORD={{device_config_backup_admin_password}}
-          --publish 8809:8809 --name d_c_b  device_config_backup
+          docker-compose --file {{device_config_backup_clone_to}}docker-compose.yml up -d

@@ -225,8 +225,8 @@ def update_config_history_by_ipv4(request, device_ipv4):
 
         loop.run_until_complete(
             AMQPH.send(
-                settings.AMQP_EXCHANGE_DEVICE_CONFIG_OPERATOR,
-                settings.AMQP_QUEUE_DEVICE_CONFIG_UPDATE_REQUESTS,
+                settings.RMQ_TELNET_OPERATOR_RMQ_EXCHANGE,
+                settings.RMQ_TELNET_OPERATOR_RMQ_QUEUE_IN,
                 json.dumps(device_j)
             )
         )
@@ -281,8 +281,8 @@ def update_config_history(request, device_id='All'):
 
         loop.run_until_complete(
             AMQPH.send(
-                settings.AMQP_EXCHANGE_DEVICE_CONFIG_OPERATOR,
-                settings.AMQP_QUEUE_DEVICE_CONFIG_UPDATE_REQUESTS,
+                settings.RMQ_TELNET_OPERATOR_RMQ_EXCHANGE,
+                settings.RMQ_TELNET_OPERATOR_RMQ_QUEUE_IN,
                 json.dumps(device_j)
             )
         )
@@ -345,8 +345,8 @@ def scan_network(request, network_id):
 
     loop.run_until_complete(
         AMQPH.send(
-            settings.AMQP_EXCHANGE_NETWORK,
-            settings.AMQP_QUEUE_IP_ADRRESS_PING_REQUEST,
+            settings.RMQ_PING_COMMANDER_RMQ_EXCHANGE,
+            settings.RMQ_PING_OPERATOR_RMQ_QUEUE_IN,
             json.dumps(network_msg)
         )
     )
