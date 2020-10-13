@@ -30,7 +30,7 @@ services:
   rmq_postgres_comander:
     build: /tmp/rmq_postgres_commander/
     restart: always
-    container_name: d_c_b_pgc
+    # container_name: d_c_b_pgc
     depends_on:
       - rabbitmq
     networks:
@@ -39,7 +39,7 @@ services:
   rmq_telnet_operator:
     build: /tmp/rmq_telnet_operator/
     restart: always
-    container_name: d_c_b_to
+    # container_name: d_c_b_to
     depends_on:
       - rabbitmq
     networks:

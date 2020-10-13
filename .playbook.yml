@@ -28,7 +28,7 @@
 
       postgres_commander_rmq_exchange : "postgres_commander_rmq_exchange"
       postgres_commander_rmq_queue_in : "postgres_commander_rmq_queue_in"
-      easy_crossing_post_address : ""
+      easy_crossing_post_address : "http://10.0.3.8/incoming/"
 
       rmq_telnet_operator_rmq_exchange: "rmq_telnet_operator_rmq_exchange"
       rmq_telnet_operator_rmq_queue_in: "rmq_telnet_operator_rmq_queue_in"
@@ -106,10 +106,13 @@
           command: docker rm d_c_b_pc
 
         - name: rm container rmq
+          command: docker stop rmq
+
+        - name: rm container rmq
           command: docker rm rmq
 
         ignore_errors: yes
 
       - name: run images
         command: >
-          docker-compose --file {{device_config_backup_clone_to}}docker-compose.yml up -d
+          docker-compose --file {{device_config_backup_clone_to}}docker-compose.yml up --scale rmq_telnet_operator=20 --scale rmq_postgres_comander=20 -d
